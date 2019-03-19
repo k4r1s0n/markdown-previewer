@@ -24,23 +24,27 @@ class App extends Component {
     let {markdown} = this.state;
     console.log(markdown);
     return (
-      <div className="App container-fluid">
-        <div className="Toolbar row text-center">
-          <div className="col-md-6">
-              <h2>Markdown Input</h2>
+      <div className="App">
+        <h1>Markdown Previewer</h1>
+        <div className="wrap container-fluid">
+          <div className="Toolbar row text-center">
+            <div className="col-md-6">
+                <h2>Markdown Input</h2>
+            </div>
+            <div className="col-md-6"> 
+              <h2>Preview</h2>                                        
+            </div>
           </div>
-          <div className="col-md-6"> 
-            <h2>Preview</h2>                                        
+          <div className="Main row">
+            <div className="Input col-md-6">
+              <Textarea id="editor" value={markdown} onChange ={(event) => this.handleChange(event.target.value)}/>
+            </div>
+            <div className="Output col-md-6 container"> 
+              <div id="preview" dangerouslySetInnerHTML={{__html:marked(markdown)}}></div>                                                 
+            </div>
           </div>
         </div>
-        <div className="Main row">
-          <div className="Input col-md-6">
-            <Textarea id="editor" value={markdown} onChange ={(event) => this.handleChange(event.target.value)}/>
-          </div>
-          <div className="Output col-md-6 container"> 
-            <div id="preview" dangerouslySetInnerHTML={{__html:marked(markdown)}}></div>                                                 
-          </div>
-        </div>
+
       </div>
     );
   }
