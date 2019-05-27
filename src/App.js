@@ -3,54 +3,66 @@ import Textarea from 'react-textarea-autosize';
 import './App.css';
 
 
+
+
+
+
 class App extends Component {
   constructor(props) {
-    super(props)
-     this.state = {
-    markdown: placeholder
-    }
+    super(props);
+    this.state = {
+      markdown: placeholder
+    };
     this.handleChange = this.handleChange.bind(this);
+    this.remover = this.remover.bind(this);
   }
-  
 
-  handleChange (markdown) {
-    this.setState ({markdown});
+  handleChange(markdown) {
+    this.setState({ markdown });
+  }
+
+  remover() {
+    this.setState({
+      markdown:''
+    });
   }
   render() {
-    const marked = require('marked');
+    const marked = require("marked");
     marked.setOptions({
-      breaks: true,
+      breaks: true
     });
-    let {markdown} = this.state;
+    let { markdown } = this.state;
     console.log(markdown);
     return (
-      <div className="App">
-        <h1>Markdown Previewer</h1>
-        <div className="wrap container-fluid">
-          <div className="Toolbar row text-center">
-            <div className="col-md-6">
-                <h2>Markdown Input</h2>
+      <div id="App">
+        <h1 id="title" className="text-center">
+          Markdown Previewer
+        </h1>
+        <div className="container">
+          <div className="row ">
+            <div id="input" className="col-md-6">
+              <h2 className="header text-center">Markdown Input</h2>
+              <i className="far fa-times-circle" onClick={this.remover} title="Delete Text"></i>
+              <Textarea
+                id="editor"
+                value={markdown}
+                onChange={event => this.handleChange(event.target.value)}
+              />
             </div>
-            <div className="col-md-6"> 
-              <h2>Preview</h2>                                        
-            </div>
-          </div>
-          <div className="Main row">
-            <div className="Input col-md-6">
-              <Textarea id="editor" value={markdown} onChange ={(event) => this.handleChange(event.target.value)}/>
-            </div>
-            <div className="Output col-md-6 container"> 
-              <div id="preview" dangerouslySetInnerHTML={{__html:marked(markdown)}}></div>                                                 
+            <div id="output" className="col-md-6">
+              <h2 className="header text-center">Preview</h2>
+              <div
+                id="preview"
+                dangerouslySetInnerHTML={{ __html: marked(markdown) }}
+              />
             </div>
           </div>
         </div>
-
       </div>
     );
   }
 }
-const placeholder = 
-`# Welcome to my React Markdown Previewer!
+const placeholder = `# Welcome to my React Markdown Previewer!
 
 ## This is a sub-heading...
 ### And here's some other cool stuff:
@@ -95,8 +107,7 @@ And here. | Okay. | I think we get it.
 * And last but not least, let's not forget embedded images:
 
 ![React Logo w/ Text](https://goo.gl/Umyytc)
-`
-
+`;
 
 
 
